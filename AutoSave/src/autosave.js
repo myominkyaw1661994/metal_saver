@@ -10,10 +10,10 @@ const Logger = require('./logger/logger');
 
 
 class AutoSave {
-    constructor(autoSave = {}) {
-        this.autoSave = autoSave;
+    constructor(autoSaveData = {}, currentMetalPrice = {}) {
+        this.autoSaveData = autoSaveData;
+        this.currentMetalPrice =currentMetalPrice;
         this.autoSaveAccumulator = new AutoSaveAccumulator(
-            this,
             new DepositHandler(),
             new MetalSaveHandler(),
             new MetalSoldHandler(),
@@ -23,18 +23,20 @@ class AutoSave {
         );
     }
 
-    setAutoSave(autoSave) {
-        this.autoSave = autoSave; 
+    setAutoSaveData(autoSaveData) {
+        this.autoSaveData = autoSaveData; 
+    }
+
+    setCurrentMetalPrice(currentMetalPrice) {
+        this.currentMetalPrice = currentMetalPrice;
     }
 
     getAutoSave(){
-        return this.autoSave;
-    }
-
-    updateAutoSave(){
+        return this.autoSaveData;
     }
 
     saveMetal() {
+        this.autoSaveAccumulator.saveMetal(this.autoSaveData, this.currentMetalPrice);
     }
 }
 

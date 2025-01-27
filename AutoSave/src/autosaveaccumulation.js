@@ -17,9 +17,8 @@ class Accumulator {
   
   
 class AutoSaveAccumulator extends Accumulator {
-    constructor(autoSave, depositHandler, metalHandler, soldHandler, withdrawHandler, storageFeeHander, logger) {
+    constructor(depositHandler, metalHandler, soldHandler, withdrawHandler, storageFeeHander, logger) {
       super(logger);
-      this.autoSave = autoSave;
       this.depositHandler = depositHandler;
       this.metalHandler = metalHandler;
       this.soldHandler = soldHandler;
@@ -32,14 +31,14 @@ class AutoSaveAccumulator extends Accumulator {
       this.depositHandler.deposit(amount, currency);
     }
   
-    saveMetal() {
+    saveMetal(autoSaveData, price) {
       this.log("Saving metal...");
-      this.metalHandler.save(this.autoSave.autoSave);
+      this.metalHandler.save(autoSaveData, price);
     }
   
     soldMetal(metal, amount) {
       this.log(`Selling ${amount} units of ${metal}...`);
-      this.soldHandler.sell(metal, amount, this.autoSave.autoSave);
+      this.soldHandler.sell(metal, amount);
     }
 
     storageFee(){
@@ -49,12 +48,12 @@ class AutoSaveAccumulator extends Accumulator {
   
     withdrawMoneyAutoSave(amount) {
       this.log(`Withdrawing money: ${amount}...`);
-      this.withdrawHandler.withdrawMoney(amount, this.autoSave.autoSave);
+      this.withdrawHandler.withdrawMoney(amount);
     }
   
     withdrawMetalAutoSave(metal, amount) {
       this.log(`Withdrawing metal: ${metal}, Amount: ${amount}...`);
-      this.withdrawHandler.withdrawMetal(metal, amount, this.autoSave.autoSave);
+      this.withdrawHandler.withdrawMetal(metal, amount);
     }
 }
   

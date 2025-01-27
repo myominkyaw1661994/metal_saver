@@ -193,7 +193,7 @@ class ReadExcelData{
             console.log(`Object ${index + 1}.`, obj);
         })
 
-        const masterClientJson = path.join(this.jsonfilepath, '/masterclientmothl.json');
+        const masterClientJson = path.join(this.jsonfilepath, '/masterclientmothly.json');
         this.writeFile(masterClientJson, objects);
     }    
 
